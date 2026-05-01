@@ -1,0 +1,258 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{pgfgantt} % for Gantt chart
+\usepackage{booktabs} % for better tables
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{amsmath} % For mathematical notation
+\usepackage{amssymb} % For additional math symbols
+\usepackage{url} % For URLs
+\usepackage{cite} % For better citation handling
+\usepackage[colorlinks=true, allcolors=blue]{hyperref} 
+
+\title{A Study on the Performance of 5G and Edge Computing Integration \\ in Real-Time IoT Applications}
+
+\begin{document}
+
+% ---------------- COVER PAGE ----------------
+\begin{titlepage}
+    \centering
+    \includegraphics[width=0.4\textwidth]{HULogo.jpg}
+    \vspace*{2cm}
+    
+    {\Large \textbf{Hawassa University of Institute of Technology}}\\[0.3cm]
+    {\large Faculty of Informatics}\\[0.3cm]
+    {\large Department of Computer Science}\\[1.2cm]
+    
+    {\large \textbf{Research Methods in Computer Science (CoSc3101)}}\\[0.3cm]
+    {\large CS Research Proposal (Individual Project)}\\[1.5cm]
+    
+    \rule{\textwidth}{0.5pt}\\[0.5cm]
+    
+    {\LARGE \textbf{A Study on the Performance of 5G and Edge Computing Integration}}\\[0.3cm]
+    {\LARGE \textbf{in Real-Time IoT Applications}}\\[0.5cm]
+    
+    \rule{\textwidth}{0.5pt}\\[1.5cm]
+    
+    \begin{flushleft}
+    \textbf{Student Name:} Amanuel Seifu\\
+    \textbf{ID No:} 1264/16\\
+    \textbf{Academic Year:} 2018/2026\\
+    \textbf{Semester:} Year III, Semester II\\
+    \textbf{Course Instructor:} Mr Birhane Bekele\\
+    \end{flushleft}
+    
+    \vfill
+    
+    \textbf{Submission Deadline: May 1, 2026}\\[0.5cm]
+    
+    \vspace{1cm}
+    
+\end{titlepage}
+
+% ---------------- TABLE OF CONTENTS ----------------
+\tableofcontents
+\newpage
+
+% ---------------- INTRODUCTION ----------------
+\section{Introduction}
+The rapid growth of IoT devices—from smartwatches to autonomous systems—demands real-time performance with under-10 ms latency and ultra-high reliability (up to 99.999 percent), as targeted by 5G URLLC standards \cite{li2025}. However, current cloud-centric architectures introduce significant delays, typically ranging from 50–200 ms, due to long-distance data transmission and centralized processing \cite{chen2022}. Even with 5G, data often must travel to distant cloud servers, limiting end-to-end performance. Edge computing addresses this issue by moving computation closer to the network edge, reducing latency and improving responsiveness \cite{kumar2024, patel2025}.
+
+\section{The Logical Foundation}
+
+\subsection{Title}
+A Study on the Performance of 5G and Edge Computing Integration in Real-Time IoT Applications
+
+\subsection{Problem Statement (3-part framework)}
+\textbf{Ideal:} In real-time IoT systems (e.g., autonomous vehicles, remote surgery, industrial automation, and smart grids), data must be processed with sub-10ms latency, ultra-high reliability (99.999\%), and minimal backhaul congestion to support instantaneous decision-making and safety-critical operations.
+
+\textbf{Reality:} Current cloud-centric IoT architectures suffer from high round-trip latency (typically 50–200ms), bandwidth bottlenecks, packet jitter, and single points of failure due to centralized processing. Although 5G offers significant improvements in bandwidth and lower air-interface latency, transporting all data to distant cloud data centers still limits end-to-end performance, especially under high device density and variable radio conditions.
+
+\textbf{Consequence:} Without effective integration of 5G with Multi-access Edge Computing (MEC), real-time IoT applications face degraded performance, increased risk of catastrophic failure (e.g., collisions in autonomous drones or vehicles, surgical errors in telesurgery), violation of strict Quality of Service (QoS) requirements for URLLC (Ultra-Reliable Low-Latency Communication), and inefficient energy use at resource-constrained IoT devices.
+
+\subsection{Significance of the Study}
+The integration of 5G and edge computing is projected to be a multi-billion-dollar market enabler for Industry 4.0 and beyond. This study will provide actionable insights into latency-energy-throughput trade-offs, supporting scalable deployment of safety-critical IoT applications in Ethiopia and similar developing contexts where reliable cloud connectivity may be limited.
+
+\subsection{Objectives}
+\textbf{General Objective:} To evaluate the performance of 5G and edge computing integration for real-time IoT applications in terms of latency, throughput, reliability, and energy efficiency.
+
+\textbf{Specific SMART Objectives:}
+\begin{enumerate}[leftmargin=*]
+    \item To measure end-to-end latency reduction when offloading IoT tasks to 5G-enabled edge nodes versus traditional cloud processing, using ns-3 simulations, targeting at least 40\% improvement by Week 8.
+    \item To quantify network throughput and Packet Delivery Ratio (PDR) under varying device densities (50–500 IoT devices/km²) with edge versus cloud processing, fully documented by Week 12.
+    \item To analyze energy consumption at IoT devices when using 5G+edge compared to 4G+cloud baselines, aiming for at least 30\% energy saving by Week 14.
+    \item To investigate the impact of different radio conditions (LOS/NLOS, interference) on overall system performance and propose adaptive offloading thresholds.
+\end{enumerate}
+
+\section{Literature Synthesis \& SOTA}
+
+\subsection{Synthesis Matrix}
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{2.8cm}|p{2.5cm}|p{2.8cm}|p{2.5cm}|p{3cm}|}
+\hline
+\textbf{Author(s)} & \textbf{Method} & \textbf{Dataset} & \textbf{Performance Metric} & \textbf{Limitation} \\
+\hline
+Zhang et al. (2023) \cite{zhang2023} & RL-based offloading & Simulated 5G traces & Latency (ms) & No real hardware validation \\
+\hline
+Kumar \& Lee (2024) \cite{kumar2024} & Edge orchestration & Open5G API & Throughput (Mbps) & Ignored energy cost \\
+\hline
+Patel et al. (2025) \cite{patel2025} & MEC+5G testbed & Custom IoT sensors & Jitter, packet loss & Small-scale (10 nodes) \\
+\hline
+Chen et al. (2022) \cite{chen2022} & Cloud-only baseline & Kaggle IoT dataset & Response time & No edge comparison \\
+\hline
+Ahmed et al. (2026) \cite{ahmed2026} & Federated edge learning & IEEE DataPort 5G/IoT & Energy (Joules) & High simulation overhead \\
+\hline
+Li et al. (2025) \cite{li2025} & Hybrid 5G-MEC & Autonomous vehicle traces & Latency, reliability & Restricted to platooning \\
+\hline
+\end{tabular}
+\caption{Synthesis Matrix of Related Work}
+\label{tab:synthesis}
+\end{table}
+
+\subsection{Synthesis Justification}
+Recent developments in 5G New Radio (NR) and Multi-access Edge Computing (MEC) have shown strong potential to support real-time IoT applications with very low latency. For example, studies such as \cite{zhang2023} indicate that integrating edge computing with 5G can achieve near real-time responsiveness under controlled conditions. Similarly, \cite{kumar2024} report that edge-based orchestration can significantly improve throughput compared to traditional cloud-based systems. Experimental work using MEC-enabled 5G testbeds has also demonstrated reductions in jitter and packet loss, although these experiments are often limited to small-scale environments \cite{patel2025}. On the other hand, cloud-only approaches, while useful as baselines, do not fully utilize the benefits of edge computing for latency-sensitive applications \cite{chen2022}. Recent research on energy-aware edge solutions highlights the importance of sustainability, but these methods may introduce additional computational overhead \cite{ahmed2026}. Furthermore, hybrid 5G-MEC systems applied to autonomous vehicles show promising improvements in latency and reliability, though they are usually restricted to specific scenarios \cite{li2025}.
+
+Despite these advancements, there is still a clear research gap. Most existing studies focus on a single performance metric, such as latency or energy efficiency, rather than evaluating multiple factors together. In addition, many experiments rely on limited datasets or non-reproducible setups, making it difficult to compare results across different studies.
+
+To address this gap, this research proposes a comprehensive simulation-based evaluation using the ns-3 platform with the 5G-LENA module. The study will analyze key performance metrics, including latency, throughput, Packet Delivery Ratio (PDR), and energy consumption, under various conditions. By using realistic channel models and combining public datasets with simulated traffic, the research aims to provide a more complete understanding of how 5G and edge computing can be effectively integrated for real-time IoT applications.
+
+\section{Technical Methodology \& Experimental Design}
+
+\subsection{System Architecture Diagram}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{architecture.png}
+    \caption{Proposed system architecture showing IoT devices, 5G gNB, MEC servers at the edge, and optional cloud backend with different offloading paths}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{Tool Justification}
+\begin{itemize}
+    \item \textbf{ns-3 with 5G-LENA (NR) module:} Chosen for its native support of 5G NR protocol stack, realistic channel modeling, and high-fidelity physical layer simulation.
+    \item \textbf{Python + Matplotlib/Seaborn + Pandas:} For post-processing, statistical analysis, and visualization of results.
+    \item \textbf{Git/GitHub:} For version control and maintaining a public repository.
+    \item \textbf{IEEE DataPort:} For accessing public 5G IoT traffic datasets.
+    \item \textbf{LaTeX (Overleaf):} For writing the proposal and generating the final PDF.
+\end{itemize}
+
+\subsection{Simulation Scenarios}
+Three main configurations will be compared:
+\begin{enumerate}
+    \item 4G + Cloud-only baseline
+    \item 5G + Cloud-only
+    \item 5G + MEC (Edge) with dynamic task offloading
+\end{enumerate}
+
+\subsection{Data Strategy}
+\textbf{Dataset Source:} Public IEEE DataPort "5G IoT Traffic Traces" supplemented with synthetic background traffic.
+
+\textbf{Pre-processing:}
+\begin{enumerate}
+    \item Normalize timestamps and synchronize traces.
+    \item Filter statistical outliers (beyond 5 standard deviations).
+    \item Generate scenario-specific configurations.
+\end{enumerate}
+
+\subsection{Evaluation Metrics in Mathematical Form}
+
+\subsubsection{End-to-End Latency}
+The end-to-end latency for a packet \(i\) is defined as:
+\[
+L_i = t_{\text{receive},i} - t_{\text{send},i}
+\]
+where:
+\begin{itemize}
+    \item \(t_{\text{send},i}\) = time when packet \(i\) is transmitted by IoT device
+    \item \(t_{\text{receive},i}\) = time when packet \(i\) is received at edge/cloud
+\end{itemize}
+
+The mean latency \(\bar{L}\) and percentile latencies are:
+\[
+\bar{L} = \frac{1}{N}\sum_{i=1}^{N} L_i
+\]
+\[
+L_{p} = \inf \{ l \in \mathbb{R} : \frac{1}{N}\sum_{i=1}^{N} \mathbf{1}_{L_i \leq l} \geq \frac{p}{100} \}
+\]
+where \(p \in \{95, 99\}\) for 95th and 99th percentiles, and \(\mathbf{1}\) is the indicator function.
+
+\subsubsection{Throughput}
+The aggregate throughput \(T\) at the gNB or edge node is:
+\[
+T = \frac{B}{t_{\text{total}}}
+\]
+where:
+\begin{itemize}
+    \item \(B\) = total number of bits successfully delivered
+    \item \(t_{\text{total}}\) = total measurement time interval
+\end{itemize}
+
+\subsubsection{Energy Consumption}
+The total energy consumed by an IoT device is:
+\[
+E_{\text{total}} = \sum_{j=1}^{M} (P_{\text{tx},j} \cdot t_{\text{tx},j}) + (P_{\text{rx},j} \cdot t_{\text{rx},j}) + (P_{\text{idle}} \cdot t_{\text{idle}})
+\]
+where:
+\begin{itemize}
+    \item \(P_{\text{tx},j}\) = transmission power for packet \(j\)
+    \item \(t_{\text{tx},j}\) = transmission time for packet \(j\)
+    \item \(P_{\text{rx},j}\) = reception power for packet \(j\)
+    \item \(t_{\text{rx},j}\) = reception time for packet \(j\)
+    \item \(P_{\text{idle}}\) = power consumption in idle state
+    \item \(t_{\text{idle}}\) = total idle time
+\end{itemize}
+
+\subsubsection{Jitter}
+Jitter is defined as the variance in packet inter-arrival times:
+\[
+J = \sqrt{\frac{1}{N-1}\sum_{i=2}^{N} (\Delta_i - \bar{\Delta})^2}
+\]
+where:
+\begin{itemize}
+    \item \(\Delta_i = L_i - L_{i-1}\) = difference in latency between consecutive packets
+    \item \(\bar{\Delta} = \frac{1}{N-1}\sum_{i=2}^{N} \Delta_i\) = mean latency difference
+\end{itemize}
+
+\section{Project Management \& Ethics}
+
+\subsection{Gantt Chart}
+\begin{ganttchart}[
+    hgrid, vgrid,
+    title label anchor=west,
+    title height=1,
+    bar/.append style={fill=blue!30}
+]{1}{15}
+\gantttitle{Weeks}{15} \\
+\gantttitlelist{1,...,15}{1} \\
+\ganttbar{Literature Review \& Gap Analysis}{1}{3} \\
+\ganttbar{ns-3 Setup \& Dataset Preparation}{3}{6} \\
+\ganttbar{Simulation Implementation \& Runs}{6}{11} \\
+\ganttbar{Data Analysis \& Evaluation}{10}{13} \\
+\ganttbar{Final Writing \& Submission}{13}{15} \\
+\end{ganttchart}
+
+\subsection{Ethics}
+\begin{itemize}
+    \item \textbf{Data privacy:} All used datasets contain no personal identifiers; synthetic traffic augmentation ensures compliance.
+    \item \textbf{Bias \& reproducibility:} Simulations will explicitly include high-interference and mobility scenarios to avoid optimistic bias. All code will be open-sourced.
+    \item \textbf{Environmental impact:} Simulations run locally on a standard laptop. Promoting edge computing is expected to reduce overall energy consumption.
+\end{itemize}
+
+\section{Version Control \& Documentation}
+
+\begin{itemize}
+    \item GitHub repository: \url{https://github.com/Amanuel1264/5G-Edge-Iot-Proposal} (public, with MIT license)
+    \item Comprehensive README.md including setup instructions, parameter explanations, and result reproduction steps.
+    \item All citations managed via \texttt{references.bib} (BibTeX).
+\end{itemize}
+
+\newpage
+
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}
